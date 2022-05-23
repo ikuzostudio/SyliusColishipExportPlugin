@@ -1,0 +1,42 @@
+ikuzo:
+  ui:
+    shippingWeight: Poids colis
+    shippingWeightUnit: Poids colis (en kg)
+    coliship_export:
+      weight_changed: Poids mis à jour
+    coliship:
+      username: Nom d'utilisateur
+      password: Mot de passe
+      expeditor:
+        company: Entreprise
+        firstname: Prénom
+        lastname: Nom
+        address1: Adresse 1
+        address2: Adresse 2
+        address3: Adresse 3
+        address4: Adresse 4
+        city: Ville
+        zipcode: Code postal
+        country: Pays
+      label_format: Format d'étiquette
+      default_content: Contenu des colis par défaut
+      default_hs_code: N° de nomenclature SH par défaut
+      default_hs_code_help: "Pour plus d'informations : https://douane.gouv.nc/le-tarif-douanier/nomenclature-tarifaire"
+      eori_number: Numéro EORI
+      eori_number_help: "Pour plus d'informations : http://douane.gouv.fr/articles/a10901-numero-eori-economic-operator-registration-and-identification"
+      products:
+        dom_fr: France - Colissimo Domicile - sans signature
+        dos_fr: France - Colissimo Domicile - avec signature
+        bpr_fr: France - Colissimo - Point Retrait – en Bureau de Poste
+        a2p_fr: France - Colissimo - Point Retrait – en relais Pickup ou en consigne Pickup Station
+        colr_fr: France - Colissimo Flash - sans signature
+        j:1_fr: France - Colissimo Flash – avec signature
+        com_om: OM - Colissimo Domicile - sans signature
+        cds_om: OM - Colissimo Domicile - avec signature
+        eco_om: OM - Colissimo Eco OM - sans signature 
+        ecos_om: OM - Colissimo Eco OM - avec signature
+        dom_inter: International - Colissimo Domicile International - sans signature
+        dos_inter: International - Colissimo Domicile International - avec signature
+        cmt_inter: International - Colissimo Point Retrait International – en relais
+        pcs_inter: International - Colissimo Point Retrait International – Consigne Pickup Station
+        bdp_inter: International - Colissimo Point Retrait International – en bureau de poste

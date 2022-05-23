@@ -1,0 +1,18 @@
+{% set weight = data.shipment.shippingWeight %}
+{% set state = 'green' %}
+
+{% if data.weight and data.weight > 0 %}
+    {% set weight = data.weight %}
+{% endif %}
+
+{% if weight == 0 %}
+    {% set state = 'red' %}
+{% endif %}
+
+{% if data.state == 'new' %}
+    {{ render(controller('Ikuzo\\SyliusColishipPlugin\\Controller\\ShippingExportController::setWeight', {id: data.id})) }}
+{% else %}
+    <span class="shipping-export-state ui {{ state }} label">
+        {{ weight }} kg
+    </span>
+{% endif %}

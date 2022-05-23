@@ -1,0 +1,42 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ikuzo\SyliusColishipPlugin\Controller\:
+        resource: '../../../src/Controller'
+        tags: ['controller.service_arguments']
+
+    ikuzo.coliship_plugin.form.type.coliship_shipping_gateway:
+        class: Ikuzo\SyliusColishipPlugin\Form\Type\ShippingGatewayType
+        tags:
+            - { name: bitbag.shipping_gateway_configuration_type, type: 'coliship', label: "Coliship" }
+            - { name: form.type }
+        autowire: true
+        
+    ikuzo.coliship_plugin.api.shipping_label_fetcher:
+        class: Ikuzo\SyliusColishipPlugin\Api\ShippingLabelFetcher
+        arguments:
+            - '@session.flash_bag'
+            - '@ikuzo.coliship_plugin.api.web_client'
+            - '@ikuzo.coliship_plugin.api.soap_client'
+
+    ikuzo.coliship_plugin.event_listener.coliship_shipping_export:
+        class: Ikuzo\SyliusColishipPlugin\EventListener\ShippingExportEventListener
+        arguments:
+            - '@filesystem'
+            - '@bitbag.repository.shipping_export'
+            - '%bitbag.shipping_labels_path%'
+            - '@ikuzo.coliship_plugin.api.shipping_label_fetcher'
+        tags:
+            - { name: kernel.event_listener, event: 'bitbag.shipping_export.export_shipment', method: exportShipment }
+
+    ikuzo.coliship_plugin.api.web_client:
+        class: Ikuzo\SyliusColishipPlugin\Api\WebClient
+
+    ikuzo.coliship_plugin.api.soap_client:
+        class: Ikuzo\SyliusColishipPlugin\Api\SoapClient
+
+    ikuzo.coliship_plugin.controller.shipping_export:
+        class: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController

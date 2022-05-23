@@ -1,0 +1,7 @@
+bitbag_shipping_export_plugin:
+    resource: "@BitBagSyliusShippingExportPlugin/Resources/config/routing.yml"
+    prefix: /admin
+
+ikuzo_coliship_export_plugin:
+    resource: "@IkuzoSyliusColishipPlugin/Resources/config/routing.yml"
+    prefix: /admin

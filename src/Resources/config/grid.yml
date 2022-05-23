@@ -1,0 +1,16 @@
+sylius_grid:
+  grids:
+    bitbag_admin_shipping_export:
+      fields:
+        weight:
+          type: twig
+          label: ikuzo.ui.shippingWeight
+          path: .
+          options:
+            template: "@IkuzoSyliusColishipPlugin/ShippingExport/Grid/Field/shipmentWeight.html.twig"
+
+sylius_resource:
+  resources:
+    bitbag.shipping_export:
+      classes:
+        model: Ikuzo\SyliusColishipPlugin\Entity\ShippingExport

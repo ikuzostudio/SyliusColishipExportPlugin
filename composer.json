@@ -1,5 +1,5 @@
 {
-    "name": "ikuzo/coliship-plugin",
+    "name": "ikuzostudio/coliship-plugin",
     "type": "sylius-plugin",
     "description": "A plugin to add Coliship/Colissimo into BitBag SyliusShippingExportPlugin.",
     "keywords": [

@@ -16,7 +16,7 @@ Install & configure [BitBagCommerce / SyliusShippingExportPlugin](https://github
 
 
 ```
-$ composer require ikuzo/coliship-plugin
+$ composer require ikuzostudio/coliship-plugin
 ```
 
 Add plugin dependencies to your `config/bundles.php` file:

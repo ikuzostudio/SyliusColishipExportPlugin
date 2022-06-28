@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Ikuzo\SyliusColishipPlugin\Controller;
 
+use BitBag\SyliusShippingExportPlugin\Entity\ShippingExport;
 use Doctrine\ORM\EntityManagerInterface;
-use Ikuzo\SyliusColishipPlugin\Entity\ShippingExport;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

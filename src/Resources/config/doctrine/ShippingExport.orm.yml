@@ -1,8 +1,0 @@
-Ikuzo\SyliusColishipPlugin\Entity\ShippingExport:
-  type: entity
-  table: bitbag_shipping_export
-  fields:
-    weight:
-      type: float
-      column: weight
-      nullable: true

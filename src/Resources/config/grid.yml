@@ -8,9 +8,3 @@ sylius_grid:
           path: .
           options:
             template: "@IkuzoSyliusColishipPlugin/ShippingExport/Grid/Field/shipmentWeight.html.twig"
-
-sylius_resource:
-  resources:
-    bitbag.shipping_export:
-      classes:
-        model: Ikuzo\SyliusColishipPlugin\Entity\ShippingExport

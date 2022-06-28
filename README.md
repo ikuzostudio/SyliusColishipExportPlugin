@@ -46,6 +46,28 @@ ikuzo_coliship_export_plugin:
   prefix: /admin
 ```
 
+Extend bitbag shipping entity
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity\Entity;
+
+use Ikuzo\SyliusColishipPlugin\Model\ShippingExportTrait;
+use BitBag\SyliusShippingExportPlugin\Entity\ShippingExport as BaseShippingExport;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="bitbag_shipping_export")
+ */
+class ShippingExport extends BaseShippingExport
+{
+    use ShippingExportTrait;
+}
+```
+
 Update your database
 
 ```

@@ -1,7 +1,8 @@
-{% set weight = data.shipment.shippingWeight %}
+
+{% set weight = data.shipment.weight %}
 {% set state = 'green' %}
 
-{% if data.weight and data.weight > 0 %}
+{% if data.weight|default(0) and data.weight > 0 %}
     {% set weight = data.weight %}
 {% endif %}
 

@@ -27,11 +27,12 @@ final class ShippingExportController extends AbstractController
         $referer = $request->headers->get('referer');
 
         $shipment = $export->getShipment();
-        if (!$export->getWeight()) {
-            $export->setWeight($shipment->getShippingWeight());
+
+        if (!$shipment->getWeight()) {
+            $shipment->setWeight($shipment->getShippingWeight());
         }
 
-        $form = $this->createFormBuilder($export)
+        $form = $this->createFormBuilder($shipment)
             ->setAction($this->generateUrl('ikuzo_admin_coliship_set_weight', ['id' => $id]))
             ->add('weight', NumberType::class, [
                 'label' => false,
@@ -55,6 +56,6 @@ final class ShippingExportController extends AbstractController
 
         return $this->renderForm('@IkuzoSyliusColishipPlugin/ShippingExport/Grid/Field/setWeightForm.html.twig', [
             'form' => $form,
-        ]);        
+        ]);
     }
 }

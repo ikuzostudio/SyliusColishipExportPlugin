@@ -51,7 +51,7 @@ class ShippingExportEventListener
     {
         $shippingExport = $event->getSubject();
         Assert::isInstanceOf($shippingExport, ShippingExportInterface::class);
-        
+
         $shippingGateway = $shippingExport->getShippingGateway();
         Assert::notNull($shippingGateway);
 
@@ -61,21 +61,18 @@ class ShippingExportEventListener
 
         $shipment = $shippingExport->getShipment();
 
-        $weight = ($shippingExport->getWeight() > 0) ? $shippingExport->getWeight() : $shipment->getShippingWeight();
+        $weight = ($shipment->getWeight() > 0) ? $shipment->getWeight() : $shipment->getShippingWeight();
         if ($weight === null) {
             $weight = 0;
         }
 
-        
-
         $this->shippingLabelFetcher->createShipment($shippingGateway, $shipment, $weight);
 
-        
         $labelContent = $this->shippingLabelFetcher->getLabelContent();
         if (empty($labelContent)) {
             return;
         }
-        
+
         $shippingExport->getShipment()->setTracking($labelContent['parcelNumber']);
         $this->saveShippingLabel($shippingExport, $labelContent['label'], 'pdf'); // Save label
         $this->markShipmentAsExported($shippingExport); // Mark shipment as "Exported"

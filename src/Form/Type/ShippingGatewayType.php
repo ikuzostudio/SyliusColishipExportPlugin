@@ -40,9 +40,9 @@ final class ShippingGatewayType extends AbstractType
     ];
 
     public function __construct(private EntityManagerInterface $em)
-    { 
+    {
     }
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -128,7 +128,7 @@ final class ShippingGatewayType extends AbstractType
 
         foreach (self::$products as $product) {
             foreach ($this->em->getRepository(ShippingMethod::class)->findAll() as $shippingMethod) {
-                $choices[$shippingMethod->getName()] = $shippingMethod->getId();
+                $choices[$shippingMethod->getCode()] = $shippingMethod->getId();
             }
 
             $builder->add('product_'.$product, ChoiceType::class, [

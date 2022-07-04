@@ -52,17 +52,17 @@ Extend bitbag shipping entity
 
 declare(strict_types=1);
 
-namespace App\Entity\Entity;
+namespace App\Entity\Shipping;
 
+// [...]
+use Sylius\Component\Core\Model\Shipment as BaseShipment;
 use Ikuzo\SyliusColishipPlugin\Model\ShippingExportTrait;
-use BitBag\SyliusShippingExportPlugin\Entity\ShippingExport as BaseShippingExport;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="bitbag_shipping_export")
+ * @ORM\Table(name="sylius_shipment")
  */
-class ShippingExport extends BaseShippingExport
+class Shipment extends BaseShipment
 {
     use ShippingExportTrait;
 }

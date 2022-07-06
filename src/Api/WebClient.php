@@ -68,7 +68,7 @@ final class WebClient implements WebClientInterface
             'weight' => round($weight, 1)
         ];
 
-        if (method_exists($this->shipment, 'getPickupPointId') && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
+        if (method_exists($this->shipment, 'getPickupPointId') && $this->shipment->getPickupPointId() && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
             if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
                 if ($this->isProductCodePickupMethod($this->shipment->getColishipPickupRaw()['type'])) {
                     $data['pickupLocationId'] = $matches[1];
@@ -97,7 +97,7 @@ final class WebClient implements WebClientInterface
     {
         $method = $this->shipment->getMethod();
 
-        if (method_exists($this->shipment, 'getPickupPointId') && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
+        if (method_exists($this->shipment, 'getPickupPointId') && $this->shipment->getPickupPointId() && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
             if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
                 if ($this->isProductCodePickupMethod($this->shipment->getColishipPickupRaw()['type'])) {
                     return $this->shipment->getColishipPickupRaw()['type'];

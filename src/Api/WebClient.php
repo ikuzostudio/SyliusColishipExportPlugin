@@ -38,7 +38,7 @@ final class WebClient implements WebClientInterface
 
     public function getRequestData(float $weight): array
     {
-        return [
+        $data = [
             'contractNumber' => $this->shippingGateway->getConfigValue('username'),
             'password' => $this->shippingGateway->getConfigValue('password'),
             'outputFormat' => [
@@ -48,13 +48,13 @@ final class WebClient implements WebClientInterface
             ],
             'letter' => [
                 'service' => $this->getService(),
-                'parcel' => [
-                    'weight' => round($weight, 1)
-                ],
+                'parcel' => $this->getParcel($weight),
                 'sender' => $this->getSender(),
                 'addressee' => $this->getAddressee()
             ]
         ];
+
+        return $data;
     }
 
     private function getOrder(): OrderInterface
@@ -62,21 +62,48 @@ final class WebClient implements WebClientInterface
         return $this->shipment->getOrder();
     }
 
+    private function getParcel(float $weight): array
+    {
+        $data = [
+            'weight' => round($weight, 1)
+        ];
+
+        if (method_exists($this->shipment, 'getPickupPointId') && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
+            if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
+                if ($this->isProductCodePickupMethod($this->shipment->getColishipPickupRaw()['type'])) {
+                    $data['pickupLocationId'] = $matches[1];
+                }
+            }
+        }
+
+        return $data;
+    }
+
     private function getService(): array
     {
         $order = $this->getOrder();
-        
-        return [
+
+        $data = [
             'productCode' => $this->guessProductType(),
             'depositDate' => date('Y-m-d'),
             'orderNumber' => $order->getNumber(),
             'commercialName' => $this->getOrder()->getChannel()->getName()
         ];
+
+        return $data;
     }
 
     private function guessProductType(): string
     {
         $method = $this->shipment->getMethod();
+
+        if (method_exists($this->shipment, 'getPickupPointId') && preg_match('/^.*---(\d{6})---.*$/', $this->shipment->getPickupPointId(), $matches)) {
+            if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
+                if ($this->isProductCodePickupMethod($this->shipment->getColishipPickupRaw()['type'])) {
+                    return $this->shipment->getColishipPickupRaw()['type'];
+                }
+            }
+        }
 
         foreach ($this->shippingGateway->getConfig() as $key => $value) {
             if (str_starts_with($key, 'product_')) {
@@ -90,9 +117,19 @@ final class WebClient implements WebClientInterface
                 }
             }
         }
-        
+
         throw new \Exception("Cant guess product type for this expedition. Checkout your gateway config", 1);
-        
+
+    }
+
+    private function getProductCodePickup(): array
+    {
+        return ['A2P', 'BPR', 'ACP', 'CDI', 'CMT', 'BDP', 'PCS'];
+    }
+
+    private function isProductCodePickupMethod(string $productCode): bool
+    {
+        return in_array($productCode, $this->getProductCodePickup());
     }
 
     private function getSender(): array
@@ -114,6 +151,12 @@ final class WebClient implements WebClientInterface
     {
         $shippingAddress = $this->getOrder()->getShippingAddress();
 
+        if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
+            if (!preg_match('/^(\+33|\+32|06|07)(\d{8}|\d{9})$/', $shippingAddress->getPhoneNumber())) {
+                throw new \Exception("Le numéro de mobile semble incorrect et est requis pour un envoi en point Relias", 1);
+            }
+        }
+
         return [
             'addresseeParcelRef' => 'NUM_'.$shippingAddress->getId(),
             'address' => [
@@ -123,7 +166,8 @@ final class WebClient implements WebClientInterface
                 'zipCode' => str_replace('-', '', $shippingAddress->getPostcode()),
                 'city' => $shippingAddress->getCity(),
                 'line2' => $shippingAddress->getStreet(),
-                'phoneNumber' => $this->getOrder()->getCustomer()->getPhoneNumber(),
+                'phoneNumber' => $shippingAddress->getPhoneNumber(),
+                'mobileNumber' => $shippingAddress->getPhoneNumber(),
                 'email' => $this->getOrder()->getCustomer()->getEmail(),
                 'companyName' => $shippingAddress->getCompany()
             ],

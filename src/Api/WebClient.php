@@ -166,8 +166,8 @@ final class WebClient implements WebClientInterface
                 'zipCode' => str_replace('-', '', $shippingAddress->getPostcode()),
                 'city' => $shippingAddress->getCity(),
                 'line2' => $shippingAddress->getStreet(),
-                'phoneNumber' => $shippingAddress->getPhoneNumber(),
-                'mobileNumber' => $shippingAddress->getPhoneNumber(),
+                'phoneNumber' => str_replace(' ', '', $shippingAddress->getPhoneNumber()),
+                'mobileNumber' => str_replace(' ', '', $shippingAddress->getPhoneNumber()),
                 'email' => $this->getOrder()->getCustomer()->getEmail(),
                 'companyName' => $shippingAddress->getCompany()
             ],

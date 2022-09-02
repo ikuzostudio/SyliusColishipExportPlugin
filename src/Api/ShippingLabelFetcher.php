@@ -47,6 +47,7 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
     public function getLabelContent(): ?array
     {
         if (!isset($this->response->return->labelV2Response->label)) {
+            $this->flashBag->add('error', $this->response->return->messages->messageContent);
             return null;
         }
 

@@ -152,8 +152,8 @@ final class WebClient implements WebClientInterface
         $shippingAddress = $this->getOrder()->getShippingAddress();
 
         if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
-            if (!preg_match('/^(\+33|\+32|06|07)(\d{8}|\d{9})$/', $shippingAddress->getPhoneNumber())) {
-                throw new \Exception("Le numéro de mobile semble incorrect et est requis pour un envoi en point Relias", 1);
+            if (!preg_match('/^(\+33|\+32|06|07)(\d{8}|\d{9})$/', str_replace(' ', '', $shippingAddress->getPhoneNumber()))) {
+                throw new \Exception("Le numéro de mobile semble incorrect et est requis pour un envoi en point Relais", 1);
             }
         }
 

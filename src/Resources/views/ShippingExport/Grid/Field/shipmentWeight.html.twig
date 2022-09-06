@@ -11,7 +11,7 @@
 {% endif %}
 
 {% if data.state == 'new' %}
-    {{ render(controller('Ikuzo\\SyliusColishipPlugin\\Controller\\ShippingExportController::setWeight', {id: data.id})) }}
+    {{ render(controller('Ikuzo\\SyliusColishipPlugin\\Controller\\ShippingExportWeightController::setWeight', {id: data.id})) }}
 {% else %}
     <span class="shipping-export-state ui {{ state }} label">
         {{ weight }} kg

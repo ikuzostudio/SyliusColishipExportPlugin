@@ -1,4 +1,4 @@
 ikuzo_api_coliship_export:
-    path: "/admin/shipping-exports/export"
+    path: "/shipping-exports/export-api"
     controller: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController::apiExport
     methods: ['POST']

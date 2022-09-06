@@ -4,5 +4,5 @@ sylius_api:
 
 
 ikuzo_api_coliship_export:
-    prefix: "%sylius.security.new_api_route%"
+    # prefix: "%sylius.security.new_api_route%"
     resource: "@IkuzoSyliusColishipPlugin/Resources/config/routing_api.yml"

@@ -74,6 +74,13 @@ Update your database
 $ bin/console doctrine:schema:update --force
 ```
 
+If you want API Endpoint to generate labels, add this to your route.yml
+
+```yaml
+ikuzo_api_coliship_export:
+    resource: "@IkuzoSyliusColishipPlugin/Resources/config/routing_api.yml"
+```
+
 Then configure your new Coliship gateway 
 
 <img src="doc/config.png" />

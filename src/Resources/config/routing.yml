@@ -1,4 +1,4 @@
 ikuzo_admin_coliship_set_weight:
     path: /shipping-exports/set-weight/{id}
-    controller: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController::setWeight
+    controller: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportWeightController::setWeight
     methods: ['GET', 'POST']

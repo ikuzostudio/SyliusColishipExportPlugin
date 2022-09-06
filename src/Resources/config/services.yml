@@ -1,13 +1,4 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
-    Ikuzo\SyliusColishipPlugin\Controller\:
-        resource: '../../../src/Controller'
-        tags: ['controller.service_arguments']
-
     ikuzo.coliship_plugin.form.type.coliship_shipping_gateway:
         class: Ikuzo\SyliusColishipPlugin\Form\Type\ShippingGatewayType
         tags:
@@ -45,5 +36,9 @@ services:
 
     ikuzo.coliship_plugin.controller.shipping_export:
         class: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController
-        # arguments:
-        #     - '@event_dispatcher'
+
+    Ikuzo\SyliusColishipPlugin\Controller\ShippingExportWeightController:
+        public: false
+        autoconfigure: true
+        autowire: true
+        tags: ['controller.service_arguments']

@@ -32,6 +32,11 @@ services:
         tags:
             - { name: kernel.event_listener, event: 'bitbag.shipping_export.export_shipment', method: exportShipment }
 
+    ikuzo.coliship_plugin.event_listener.shipping_export_pre_create:
+        class: Ikuzo\SyliusColishipPlugin\EventListener\ShippingExportPreCreateListener
+        tags:
+            - { name: kernel.event_listener, event: 'bitbag.shipping_export.pre_create', method: exportShipment }
+
     ikuzo.coliship_plugin.api.web_client:
         class: Ikuzo\SyliusColishipPlugin\Api\WebClient
 
@@ -40,3 +45,5 @@ services:
 
     ikuzo.coliship_plugin.controller.shipping_export:
         class: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController
+        # arguments:
+        #     - '@event_dispatcher'

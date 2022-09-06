@@ -19,8 +19,8 @@ sylius_shop:
     product_grid:
         include_all_descendants: true
 
-sylius_order:
+sylius_shipping:
     resources:
-        order:
+        shipment:
             classes:
-                model: Tests\Setono\SyliusTrustpilotPlugin\Application\Entity\Order
+                model: Tests\Ikuzo\SyliusColishipPlugin\Application\Entity\Shipment

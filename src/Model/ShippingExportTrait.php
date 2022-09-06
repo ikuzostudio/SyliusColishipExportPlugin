@@ -11,7 +11,7 @@ trait ShippingExportTrait {
     /**
      * @ORM\Column(name="weight", type="float", nullable=true)
      **/
-    protected $weight = null;
+    protected $weight = 1;
 
     /**
      * @ORM\Column(name="coliship_pickup_raw", type="json", nullable=true)

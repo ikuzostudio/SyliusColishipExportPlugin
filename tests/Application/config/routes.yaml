@@ -5,3 +5,8 @@ bitbag_shipping_export_plugin:
 ikuzo_coliship_export_plugin:
     resource: "@IkuzoSyliusColishipPlugin/Resources/config/routing.yml"
     prefix: /admin
+
+ikuzo_api_coliship_export:
+    path: "/api/v2/admin/shipping-exports/export-api"
+    controller: Ikuzo\SyliusColishipPlugin\Controller\ShippingExportController::apiExport
+    methods: ['POST']

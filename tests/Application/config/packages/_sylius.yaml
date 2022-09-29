@@ -10,7 +10,6 @@ imports:
     - { resource: "@BitBagSyliusShippingExportPlugin/Resources/config/config.yml" }
 
     - { resource: "@IkuzoSyliusColishipPlugin/Resources/config/grid.yml"}
-    
 
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'

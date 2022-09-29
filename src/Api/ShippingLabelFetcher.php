@@ -30,6 +30,9 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 
             $this->response = $this->soapClient->createShipment($requestData, $weight);
 
+            if ($this->response->return->messages->type == "ERROR") {
+                throw new \Exception($this->response->return->messages->messageContent, 1);
+            }
         } catch (\SoapFault $exception) {
             $this->flashBag->add(
                 'error',

@@ -67,6 +67,11 @@ class ShippingExportEventListener
 
         $shippingExport->getShipment()->setTracking($labelContent['parcelNumber']);
         $this->saveShippingLabel($shippingExport, $labelContent['label'], 'pdf'); // Save label
+
+        if ($labelContent['cn23'] !== null) {
+            $this->saveCn23Label($shippingExport, $labelContent['cn23'], 'pdf'); // Save CN23
+        }
+
         $this->markShipmentAsExported($shippingExport); // Mark shipment as "Exported"
     }
 
@@ -83,6 +88,18 @@ class ShippingExportEventListener
         $shippingExport->setLabelPath($labelPath);
 
         $this->shippingExportRepository->add($shippingExport);
+    }
+
+    public function saveCn23Label(
+        ShippingExportInterface $shippingExport,
+        string $labelContent,
+        string $labelExtension
+    ): void {
+        $labelPath = $this->shippingLabelsPath
+            . '/' . $this->getFilename($shippingExport)
+            . '_cn23.' . $labelExtension;
+
+        $this->filesystem->dumpFile($labelPath, $labelContent);
     }
 
     private function getFilename(ShippingExportInterface $shippingExport): string

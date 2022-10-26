@@ -36,7 +36,8 @@ final class ShippingGatewayType extends AbstractType
         'dos_inter',
         'cmt_inter',
         'pcs_inter',
-        'bdp_inter'
+        'bdp_inter',
+        'coli_inter'
     ];
 
     public function __construct(private EntityManagerInterface $em)

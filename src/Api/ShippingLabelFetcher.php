@@ -29,7 +29,7 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
             $requestData = $this->webClient->getRequestData($weight);
 
             $this->response = $this->soapClient->createShipment($requestData, $weight);
-
+            
             if ($this->response->return->messages->type == "ERROR") {
                 throw new \Exception($this->response->return->messages->messageContent, 1);
             }
@@ -58,7 +58,8 @@ class ShippingLabelFetcher implements ShippingLabelFetcherInterface
 
         return [
             'parcelNumber' => $this->response->return->labelV2Response->parcelNumber,
-            'label' => $this->response->return->labelV2Response->label
+            'label' => $this->response->return->labelV2Response->label,
+            'cn23' => (isset($this->response->return->labelV2Response->cn23)) ? $this->response->return->labelV2Response->cn23 : null
         ];
 
         // return $this->response->return->labelV2Response->label;

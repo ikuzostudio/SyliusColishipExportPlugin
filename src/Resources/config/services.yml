@@ -37,3 +37,9 @@ services:
         autoconfigure: true
         autowire: true
         tags: ['controller.service_arguments']
+
+    Ikuzo\SyliusColishipPlugin\Controller\ShippingExportCn23Controller:
+        public: false
+        autoconfigure: true
+        autowire: true
+        tags: ['controller.service_arguments']

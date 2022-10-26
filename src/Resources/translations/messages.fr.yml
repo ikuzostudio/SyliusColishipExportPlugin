@@ -2,6 +2,8 @@ ikuzo:
   ui:
     shippingWeight: Poids colis
     shippingWeightUnit: Poids colis (en kg)
+    cn23: Formulaire douane (CN 23)
+    download_cn23: Télécharger le formulaire
     coliship_export:
       weight_changed: Poids mis à jour
     coliship:
@@ -19,7 +21,7 @@ ikuzo:
         zipcode: Code postal
         country: Pays
       label_format: Format d'étiquette
-      default_content: Contenu des colis par défaut
+      default_content: Contenu des colis par défaut (en Anglais)
       default_hs_code: N° de nomenclature SH par défaut
       default_hs_code_help: "Pour plus d'informations : https://douane.gouv.nc/le-tarif-douanier/nomenclature-tarifaire"
       eori_number: Numéro EORI
@@ -35,8 +37,9 @@ ikuzo:
         cds_om: OM - Colissimo Domicile - avec signature
         eco_om: OM - Colissimo Eco OM - sans signature 
         ecos_om: OM - Colissimo Eco OM - avec signature
-        dom_inter: International - Colissimo Domicile International - sans signature
-        dos_inter: International - Colissimo Domicile International - avec signature
-        cmt_inter: International - Colissimo Point Retrait International – en relais
-        pcs_inter: International - Colissimo Point Retrait International – Consigne Pickup Station
-        bdp_inter: International - Colissimo Point Retrait International – en bureau de poste
+        dom_inter: International (Europe) - Colissimo Domicile International - sans signature
+        dos_inter: International (Europe) - Colissimo Domicile International - avec signature
+        cmt_inter: International (Europe) - Colissimo Point Retrait International – en relais
+        pcs_inter: International (Europe) - Colissimo Point Retrait International – Consigne Pickup Station
+        bdp_inter: International (Europe) - Colissimo Point Retrait International – en bureau de poste
+        coli_inter: International (Mondial) - Colissimo Expert International

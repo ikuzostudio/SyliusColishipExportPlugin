@@ -50,8 +50,10 @@ final class WebClient implements WebClientInterface
                 'service' => $this->getService(),
                 'parcel' => $this->getParcel($weight),
                 'sender' => $this->getSender(),
-                'addressee' => $this->getAddressee()
+                'addressee' => $this->getAddressee(),
+                'customsDeclarations' => $this->getCustomsDeclarations($weight),
             ]
+
         ];
 
         return $data;
@@ -60,6 +62,38 @@ final class WebClient implements WebClientInterface
     private function getOrder(): OrderInterface
     {
         return $this->shipment->getOrder();
+    }
+
+    private function getCustomsDeclarations(float $weight): array
+    {
+        $data = [
+            'includeCustomsDeclarations' => "1",
+            'contents' => [
+                'article' => null,
+                'category' => [
+                    'value' => 3
+                ]
+            ],
+            'importersReference' => $this->shippingGateway->getConfigValue('eori_number'),
+            'description' => $this->shippingGateway->getConfigValue('package_default_content'),
+        ];
+
+        // dd($this->shippingGateway->getConfig(), $data);
+
+        $order = $this->getOrder();
+
+        foreach ($order->getItems() as $orderItem) {
+            $data['contents']['article'][] = [
+                'description' => substr($orderItem->getProduct()->getName(), 0, 64),
+                'quantity' => $orderItem->getQuantity(),
+                'weight' => $orderItem->getVariant()->getWeight() ?? 1,
+                'value' => round($orderItem->getTotal() / 100, 2),
+                'hsCode' => $this->shippingGateway->getConfigValue('default_hs_code'),
+                'originCountry' => $this->shippingGateway->getConfigValue('expeditor_country')
+            ];
+        }
+
+        return $data;
     }
 
     private function getParcel(float $weight): array
@@ -87,7 +121,9 @@ final class WebClient implements WebClientInterface
             'productCode' => $this->guessProductType(),
             'depositDate' => date('Y-m-d'),
             'orderNumber' => $order->getNumber(),
-            'commercialName' => $this->getOrder()->getChannel()->getName()
+            'commercialName' => $this->getOrder()->getChannel()->getName(),
+            'totalAmount' => $order->getShippingTotal(),
+            'returnTypeChoice' => 2
         ];
 
         return $data;

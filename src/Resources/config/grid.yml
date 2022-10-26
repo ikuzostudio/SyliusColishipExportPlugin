@@ -2,6 +2,12 @@ sylius_grid:
   grids:
     bitbag_admin_shipping_export:
       fields:
+        cn23:
+          type: twig
+          label: ikuzo.ui.cn23
+          path: .
+          options:
+            template: "@IkuzoSyliusColishipPlugin/ShippingExport/Grid/Field/cn23.html.twig"
         weight:
           type: twig
           label: ikuzo.ui.shippingWeight

@@ -20,13 +20,11 @@ use Webmozart\Assert\Assert;
 
 final class ShippingExportController extends ResourceController
 {
-    /** @var ShippingExportRepositoryInterface */
-    protected $repository;
-
     public function exportAllNewShipmentsAction(Request $request): RedirectResponse
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
+        Assert::implementsInterface($this->repository, ShippingExportRepositoryInterface::class);
         $shippingExports = $this->repository->findAllWithNewOrPendingState();
 
         if (0 === count($shippingExports)) {
@@ -50,6 +48,7 @@ final class ShippingExportController extends ResourceController
     {
         $configuration = $this->requestConfigurationFactory->create($this->metadata, $request);
 
+        Assert::implementsInterface($this->repository, ShippingExportRepositoryInterface::class);
         /** @var ResourceInterface|null $shippingExport */
         $shippingExport = $this->repository->find($request->get('id'));
         Assert::notNull($shippingExport);

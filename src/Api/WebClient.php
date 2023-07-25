@@ -203,7 +203,7 @@ final class WebClient implements WebClientInterface
                 'city' => $shippingAddress->getCity(),
                 'line2' => $shippingAddress->getStreet(),
                 'phoneNumber' => str_replace(' ', '', $shippingAddress->getPhoneNumber()),
-                'mobileNumber' => str_replace(' ', '', $shippingAddress->getPhoneNumber()),
+                'mobileNumber' => $this->sanitizePhoneNumber(str_replace(' ', '', $shippingAddress->getPhoneNumber())),
                 'email' => $this->getOrder()->getCustomer()->getEmail(),
                 'companyName' => $shippingAddress->getCompany()
             ],
@@ -213,5 +213,14 @@ final class WebClient implements WebClientInterface
     private function getShippingGatewayConfig($config)
     {
         return $this->shippingGateway->getConfigValue($config);
+    }
+
+    private function sanitizePhoneNumber($phoneNumber)
+    {
+        $pos = strpos($phoneNumber, '04');
+        if ($pos !== false) {
+            $phoneNumber = substr_replace($phoneNumber, '+324', $pos, strlen('04'));
+        }
+        return $phoneNumber;
     }
 }

@@ -218,7 +218,7 @@ final class WebClient implements WebClientInterface
     private function sanitizePhoneNumber($phoneNumber)
     {
         $pos = strpos($phoneNumber, '04');
-        if ($pos !== false) {
+        if ($pos !== false && $pos === 0) {
             $phoneNumber = substr_replace($phoneNumber, '+324', $pos, strlen('04'));
         }
         return $phoneNumber;

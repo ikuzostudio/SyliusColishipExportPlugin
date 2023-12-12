@@ -188,7 +188,7 @@ final class WebClient implements WebClientInterface
         $shippingAddress = $this->getOrder()->getShippingAddress();
 
         if (method_exists($this->shipment, 'getColishipPickupRaw') && !empty($this->shipment->getColishipPickupRaw()) && isset($this->shipment->getColishipPickupRaw()['type'])) {
-            if (!preg_match('/^(\+33|\+32|\+34|06|07)(\d{8}|\d{9})$/', str_replace(' ', '', $shippingAddress->getPhoneNumber()))) {
+            if (!preg_match('/^(\+336|\+337|\+32|\+34|06|07)(\d{8}|\d{9})$/', str_replace(' ', '', $shippingAddress->getPhoneNumber()))) {
                 throw new \Exception("Le numéro de mobile semble incorrect et est requis pour un envoi en point Relais", 1);
             }
         }
@@ -217,6 +217,10 @@ final class WebClient implements WebClientInterface
 
     private function sanitizePhoneNumber($phoneNumber)
     {
+        if (!preg_match('/^(\+336|\+337|\+32|\+34|06|07)(\d{8}|\d{9})$/', str_replace(' ', '', $phoneNumber))) {
+            return '';
+        }
+
         $pos = strpos($phoneNumber, '04');
         if ($pos !== false && $pos === 0) {
             $phoneNumber = substr_replace($phoneNumber, '+324', $pos, strlen('04'));
